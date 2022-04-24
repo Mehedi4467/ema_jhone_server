@@ -24,6 +24,15 @@ async function run() {
     try {
         await client.connect();
         const productCollection = client.db("emaJhoneDB").collection("products");
+
+        // get api 
+        app.get('/product', async (req, res) => {
+            const query = {};
+            const cursor = productCollection.find(query);
+            const products = await cursor.toArray();
+            res.send(products);
+
+        })
     }
     finally {
         // await client.close();
